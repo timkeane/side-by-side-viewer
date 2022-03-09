@@ -1,0 +1,6 @@
+body { margin: 0; padding: 0; }
+div.map, fieldset { position: fixed; width: 50%; top: 0; margin: 0; padding: 0; border: none; }
+div.map { bottom: 0; }
+select, button { display: inline-block; margin: 5px}
+select { width: 120px; }
+#map1, #fieldset1 { left: 50%; }
