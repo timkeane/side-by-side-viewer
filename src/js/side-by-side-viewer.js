@@ -33,7 +33,7 @@ const nextId = idType => {
 
 const addTiles = num => {
   const map = state.maps[num];
-  const tileset = document.getElementById('tileset' + num).value;
+  const tileset = $('#tileset' + num).val();
   
   // map.removeLayer();
   // map.removeSource();
@@ -81,3 +81,30 @@ state.maps[1].follow = state.maps[0];
 
 addTiles(0);
 addTiles(1);
+
+class MbLocator extends nyc.MapLocator {
+  constructor(map) {
+    super();
+    this.map = map;
+  }
+  zoomLocation (data, callback) {
+    console.warn({data});
+    this.map.setCenter(proj4('EPSG:3857', 'EPSG:4326', data.coordinate));
+    this.map.setZoom(15);
+  }
+}
+
+const geocoder = new nyc.Geoclient({
+  url: 'https://maps.nyc.gov/geoclient/v2/search.json?app_key=74DF5DB1D7320A9A2&app_id=nyc-lib-example'
+});
+
+const geolocate = {on: () =>{}};
+const projection = 'EPSG:4326';
+
+new nyc.LocationMgr({
+  mapLocator: new MbLocator(state.maps[0]),
+  search: new nyc.Search('#search'),
+  locator: new nyc.Locator({geocoder}),
+  geolocate
+});
+
