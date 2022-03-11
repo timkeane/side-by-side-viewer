@@ -1,11 +1,24 @@
 const tilesets = {
   'nyc basemap': [
-    {type: 'raster', url: 'https://maps.nyc.gov/xyz/1.0.0/carto/basemap/{z}/{x}/{y}.jpg'},
-    {type: 'raster', url: 'https://maps.nyc.gov/xyz/1.0.0/carto/label/{z}/{x}/{y}.png8'}
+    {
+      type: 'raster',
+      url: 'https://maps.nyc.gov/xyz/1.0.0/carto/basemap/{z}/{x}/{y}.jpg'
+    },
+    {
+      type: 'raster',
+      url: 'https://maps.nyc.gov/xyz/1.0.0/carto/label/{z}/{x}/{y}.png8'
+    }
   ],
   'old citymap': null,
-  'esri mvt': null,
-  'mapbox': [{type: 'vector', url: 'mapbox://styles/mapbox/streets-v11'}]
+  'esri osm': [
+    {
+      type: 'vector',
+      url: 'https://www.arcgis.com/sharing/rest/content/items/3e1a00aeae81496587988075fe529f71/resources/styles/root.json?f=json',
+    }
+  ],
+  'mapbox': [
+    {type: 'vector', url: 'mapbox://styles/mapbox/streets-v11'}
+  ]
 };
 
 const state = {
@@ -79,7 +92,7 @@ state.maps[1].on('move', track);
 state.maps[0].follow = state.maps[1];
 state.maps[1].follow = state.maps[0];
 
-addTiles(0);
+// addTiles(0);
 addTiles(1);
 
 class MbLocator extends nyc.MapLocator {
